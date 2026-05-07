@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block title %}TalentHub Careers - Find Your Next Role{% endblock %}
+{% block content %}
+
+<section class="hero">
+    <div class="container hero-content">
+        <h1>Build Your Career<br><span class="hero-accent">With Purpose</span></h1>
+        <p class="hero-subtitle">Join a team of passionate people working on products that make a difference. Explore our open roles and find where you belong.</p>
+        <div class="hero-actions">
+            <a href="{{ url_for('jobs') }}" class="btn btn-primary btn-lg">Explore Open Roles</a>
+            <a href="{{ url_for('about') }}" class="btn btn-outline btn-lg">Learn About Us</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-number">{{ total_jobs }}</span>
+                <span class="stat-label">Open Positions</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">{{ departments }}</span>
+                <span class="stat-label">Departments</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Remote Friendly</span>
+            </div>
+        </div>
+    </div>
+    <div class="hero-bg"></div>
+</section>
+
+<section class="section featured-jobs">
+    <div class="container">
+        <div class="section-header">
+            <h2>Featured Openings</h2>
+            <p>Hand-picked roles across engineering, design, marketing, and more.</p>
+        </div>
+        <div class="jobs-grid">
+            {% for job in featured_jobs %}
+            <div class="job-card">
+                <div class="job-card-header">
+                    <span class="job-dept-badge">{{ job.department }}</span>
+                    <span class="job-type-badge">{{ job.job_type }}</span>
+                </div>
+                <h3 class="job-title">{{ job.title }}</h3>
+                <div class="job-meta">
+                    <span class="job-location">&#128205; {{ job.location }}</span>
+                    {% if job.salary_range %}
+                    <span class="job-salary">&#128181; {{ job.salary_range }}</span>
+                    {% endif %}
+                </div>
+                <p class="job-excerpt">{{ job.description[:160] }}...</p>
+                <a href="{{ url_for('job_detail', job_id=job.id) }}" class="btn btn-secondary">View Role</a>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="section-cta">
+            <a href="{{ url_for('jobs') }}" class="btn btn-primary">View All {{ total_jobs }} Open Roles</a>
+        </div>
+    </div>
+</section>
+
+<section class="section perks-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Why Work With Us</h2>
+            <p>We invest in our people so they can do their best work.</p>
+        </div>
+        <div class="perks-grid">
+            <div class="perk-card">
+                <div class="perk-icon">&#127968;</div>
+                <h3>Remote-First</h3>
+                <p>Work from anywhere in the world. We believe great work happens wherever you are most comfortable.</p>
+            </div>
+            <div class="perk-card">
+                <div class="perk-icon">&#127891;</div>
+                <h3>Learning Budget</h3>
+                <p>$2,000 annual budget for conferences, courses, and books to keep you growing.</p>
+            </div>
+            <div class="perk-card">
+                <div class="perk-icon">&#127775;</div>
+                <h3>Equity Package</h3>
+                <p>Every team member shares in our success with a competitive equity package from day one.</p>
+            </div>
+            <div class="perk-card">
+                <div class="perk-icon">&#129504;</div>
+                <h3>Health & Wellness</h3>
+                <p>Comprehensive health, dental, and vision coverage plus a $500 wellness stipend.</p>
+            </div>
+            <div class="perk-card">
+                <div class="perk-icon">&#127968;</div>
+                <h3>Flexible Hours</h3>
+                <p>Own your schedule. We measure results, not hours. Async by default.</p>
+            </div>
+            <div class="perk-card">
+                <div class="perk-icon">&#9992;</div>
+                <h3>Team Retreats</h3>
+                <p>Twice-yearly all-hands retreats where the whole company gets together in person.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section cta-section">
+    <div class="container">
+        <div class="cta-box">
+            <h2>Ready to Make an Impact?</h2>
+            <p>We're always looking for talented people who share our values. Browse our open positions and apply today.</p>
+            <a href="{{ url_for('jobs') }}" class="btn btn-primary btn-lg">See Open Roles</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

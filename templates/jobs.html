@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Open Roles - TalentHub Careers{% endblock %}
+{% block content %}
+
+<section class="page-hero">
+    <div class="container">
+        <h1>Open Roles</h1>
+        <p>Find the position that matches your skills and ambitions.</p>
+    </div>
+</section>
+
+<section class="section jobs-section">
+    <div class="container">
+        <div class="jobs-layout">
+            <aside class="filters-sidebar">
+                <h3>Filter Jobs</h3>
+                <form method="GET" action="{{ url_for('jobs') }}" id="filterForm">
+                    <div class="filter-group">
+                        <label for="search">Search</label>
+                        <input type="text" id="search" name="search" value="{{ search }}" placeholder="Title, keyword...">
+                    </div>
+                    <div class="filter-group">
+                        <label for="department">Department</label>
+                        <select id="department" name="department" onchange="this.form.submit()">
+                            <option value="">All Departments</option>
+                            {% for dept in departments %}
+                            <option value="{{ dept }}" {% if selected_department == dept %}selected{% endif %}>{{ dept }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="job_type">Job Type</label>
+                        <select id="job_type" name="job_type" onchange="this.form.submit()">
+                            <option value="">All Types</option>
+                            {% for jt in job_types %}
+                            <option value="{{ jt }}" {% if selected_job_type == jt %}selected{% endif %}>{{ jt }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" name="location" value="{{ selected_location }}" placeholder="City, Remote...">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Apply Filters</button>
+                    {% if search or selected_department or selected_location or selected_job_type %}
+                    <a href="{{ url_for('jobs') }}" class="btn btn-outline btn-block">Clear Filters</a>
+                    {% endif %}
+                </form>
+            </aside>
+
+            <div class="jobs-list">
+                <div class="jobs-count">
+                    <strong>{{ jobs|length }}</strong> position{% if jobs|length != 1 %}s{% endif %} found
+                </div>
+                {% if jobs %}
+                    {% for job in jobs %}
+                    <div class="job-list-item">
+                        <div class="job-list-info">
+                            <div class="job-list-badges">
+                                <span class="job-dept-badge">{{ job.department }}</span>
+                                <span class="job-type-badge">{{ job.job_type }}</span>
+                            </div>
+                            <h3><a href="{{ url_for('job_detail', job_id=job.id) }}">{{ job.title }}</a></h3>
+                            <div class="job-meta">
+                                <span class="job-location">&#128205; {{ job.location }}</span>
+                                {% if job.salary_range %}
+                                <span class="job-salary">&#128181; {{ job.salary_range }}</span>
+                                {% endif %}
+                                <span class="job-date">Posted {{ job.posted_date.strftime('%b %d, %Y') }}</span>
+                            </div>
+                            <p class="job-excerpt">{{ job.description[:200] }}...</p>
+                        </div>
+                        <div class="job-list-actions">
+                            <a href="{{ url_for('job_detail', job_id=job.id) }}" class="btn btn-secondary">View Role</a>
+                            <a href="{{ url_for('apply', job_id=job.id) }}" class="btn btn-primary">Apply Now</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <div class="empty-icon">&#128269;</div>
+                        <h3>No positions found</h3>
+                        <p>Try adjusting your filters or search terms.</p>
+                        <a href="{{ url_for('jobs') }}" class="btn btn-primary">View All Jobs</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

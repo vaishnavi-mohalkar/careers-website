@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Apply for {{ job.title }} - TalentHub Careers{% endblock %}
+{% block content %}
+
+<section class="page-hero">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="{{ url_for('jobs') }}">Open Roles</a> &rsaquo;
+            <a href="{{ url_for('job_detail', job_id=job.id) }}">{{ job.title }}</a> &rsaquo; Apply
+        </div>
+        <h1>Apply for {{ job.title }}</h1>
+        <p>{{ job.department }} &bull; {{ job.location }} &bull; {{ job.job_type }}</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container apply-layout">
+        <div class="apply-form-container">
+            <h2>Your Application</h2>
+            <form method="POST" action="{{ url_for('apply', job_id=job.id) }}" class="apply-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name">First Name <span class="required">*</span></label>
+                        <input type="text" id="first_name" name="first_name" required placeholder="Jane">
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name <span class="required">*</span></label>
+                        <input type="text" id="last_name" name="last_name" required placeholder="Smith">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required placeholder="jane@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000">
+                </div>
+                <div class="form-group">
+                    <label for="linkedin_url">LinkedIn Profile URL</label>
+                    <input type="url" id="linkedin_url" name="linkedin_url" placeholder="https://linkedin.com/in/your-profile">
+                </div>
+                <div class="form-group">
+                    <label for="cover_letter">Cover Letter</label>
+                    <textarea id="cover_letter" name="cover_letter" rows="8" placeholder="Tell us why you're excited about this role and what you'd bring to the team..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-lg">Submit Application</button>
+                    <a href="{{ url_for('job_detail', job_id=job.id) }}" class="btn btn-outline">Cancel</a>
+                </div>
+            </form>
+        </div>
+
+        <aside class="apply-sidebar">
+            <div class="sidebar-card">
+                <h3>Role Summary</h3>
+                <ul class="sidebar-details">
+                    <li><strong>Position</strong><span>{{ job.title }}</span></li>
+                    <li><strong>Department</strong><span>{{ job.department }}</span></li>
+                    <li><strong>Location</strong><span>{{ job.location }}</span></li>
+                    <li><strong>Type</strong><span>{{ job.job_type }}</span></li>
+                    {% if job.salary_range %}
+                    <li><strong>Salary</strong><span>{{ job.salary_range }}</span></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="sidebar-card">
+                <h3>What to Expect</h3>
+                <ol class="process-list">
+                    <li>Application Review</li>
+                    <li>Recruiter Screen</li>
+                    <li>Technical Interview</li>
+                    <li>Team Interview</li>
+                    <li>Offer</li>
+                </ol>
+            </div>
+        </aside>
+    </div>
+</section>
+
+{% endblock %}

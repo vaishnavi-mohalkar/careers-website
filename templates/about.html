@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}About Us - TalentHub Careers{% endblock %}
+{% block content %}
+
+<section class="page-hero">
+    <div class="container">
+        <h1>About TalentHub</h1>
+        <p>We're on a mission to connect talented people with meaningful work.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container about-layout">
+        <div class="about-main">
+            <h2>Our Story</h2>
+            <p>TalentHub was founded in 2018 with a simple belief: the right job can change a person's life. We started as a small team of five in a co-working space, united by a frustration with how slow and opaque the hiring process had become for everyone involved.</p>
+            <p>Today, we've grown to over 200 team members across 15 countries, and we're building tools that help thousands of companies and job seekers connect every month. Our platform is used by some of the most innovative startups and established enterprises in the world.</p>
+            <p>We're driven by our values: transparency, empathy, and a relentless focus on the human experience. We believe hiring should be fast, fair, and human-centered — for candidates and employers alike.</p>
+
+            <h2 class="mt-lg">Our Values</h2>
+            <div class="values-grid">
+                <div class="value-item">
+                    <h3>&#128293; Boldness</h3>
+                    <p>We take calculated risks and challenge the status quo. We'd rather try and fail than never try at all.</p>
+                </div>
+                <div class="value-item">
+                    <h3>&#129309; Empathy</h3>
+                    <p>We listen first. Whether it's our customers, candidates, or teammates, we lead with understanding.</p>
+                </div>
+                <div class="value-item">
+                    <h3>&#128269; Transparency</h3>
+                    <p>We operate with radical openness — sharing context freely and defaulting to honesty.</p>
+                </div>
+                <div class="value-item">
+                    <h3>&#127919; Focus</h3>
+                    <p>We do a small number of things and do them exceptionally well. Quality over quantity, always.</p>
+                </div>
+            </div>
+        </div>
+
+        <aside class="about-sidebar">
+            <div class="sidebar-card">
+                <h3>Quick Facts</h3>
+                <ul class="sidebar-details">
+                    <li><strong>Founded</strong><span>2018</span></li>
+                    <li><strong>Team Size</strong><span>200+ people</span></li>
+                    <li><strong>Locations</strong><span>15 countries</span></li>
+                    <li><strong>HQ</strong><span>San Francisco, CA</span></li>
+                    <li><strong>Stage</strong><span>Series B</span></li>
+                </ul>
+            </div>
+            <div class="sidebar-card">
+                <h3>Join Us</h3>
+                <p>We're growing fast and always looking for great people. Check out our open roles.</p>
+                <a href="{{ url_for('jobs') }}" class="btn btn-primary btn-block">See Open Roles</a>
+            </div>
+        </aside>
+    </div>
+</section>
+
+{% endblock %}

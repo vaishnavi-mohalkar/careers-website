@@ -1,0 +1,25 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const toggle = document.getElementById('navToggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (toggle && navLinks) {
+        toggle.addEventListener('click', function () {
+            navLinks.classList.toggle('open');
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!toggle.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('open');
+            }
+        });
+    }
+
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(function (alert) {
+        setTimeout(function () {
+            alert.style.transition = 'opacity 0.5s';
+            alert.style.opacity = '0';
+            setTimeout(function () { alert.remove(); }, 500);
+        }, 5000);
+    });
+});

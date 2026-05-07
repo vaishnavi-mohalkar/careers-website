@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}{{ job.title }} - TalentHub Careers{% endblock %}
+{% block content %}
+
+<section class="page-hero">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="{{ url_for('jobs') }}">Open Roles</a> &rsaquo; {{ job.department }}
+        </div>
+        <h1>{{ job.title }}</h1>
+        <div class="job-hero-meta">
+            <span class="job-dept-badge">{{ job.department }}</span>
+            <span class="job-type-badge">{{ job.job_type }}</span>
+            <span class="job-location">&#128205; {{ job.location }}</span>
+            {% if job.salary_range %}
+            <span class="job-salary">&#128181; {{ job.salary_range }}</span>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container job-detail-layout">
+        <div class="job-detail-main">
+            <div class="job-detail-section">
+                <h2>About the Role</h2>
+                <p>{{ job.description }}</p>
+            </div>
+            <div class="job-detail-section">
+                <h2>What We're Looking For</h2>
+                <ul class="requirements-list">
+                    {% for req in job.requirements.split('\n') %}
+                    {% if req.strip() %}
+                    <li>{{ req.strip() }}</li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% if related_jobs %}
+            <div class="job-detail-section">
+                <h2>More Roles in {{ job.department }}</h2>
+                <div class="related-jobs">
+                    {% for rjob in related_jobs %}
+                    <div class="related-job-card">
+                        <h4><a href="{{ url_for('job_detail', job_id=rjob.id) }}">{{ rjob.title }}</a></h4>
+                        <div class="job-meta">
+                            <span>{{ rjob.location }}</span>
+                            <span>{{ rjob.job_type }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <aside class="job-detail-sidebar">
+            <div class="sidebar-card">
+                <h3>Job Details</h3>
+                <ul class="sidebar-details">
+                    <li><strong>Department</strong><span>{{ job.department }}</span></li>
+                    <li><strong>Location</strong><span>{{ job.location }}</span></li>
+                    <li><strong>Type</strong><span>{{ job.job_type }}</span></li>
+                    {% if job.salary_range %}
+                    <li><strong>Salary</strong><span>{{ job.salary_range }}</span></li>
+                    {% endif %}
+                    <li><strong>Posted</strong><span>{{ job.posted_date.strftime('%B %d, %Y') }}</span></li>
+                </ul>
+                <a href="{{ url_for('apply', job_id=job.id) }}" class="btn btn-primary btn-block">Apply for This Role</a>
+                <a href="{{ url_for('jobs') }}" class="btn btn-outline btn-block">Back to All Jobs</a>
+            </div>
+        </aside>
+    </div>
+</section>
+
+{% endblock %}

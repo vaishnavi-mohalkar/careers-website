@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Application Submitted - TalentHub Careers{% endblock %}
+{% block content %}
+
+<section class="section success-section">
+    <div class="container">
+        <div class="success-box">
+            <div class="success-icon">&#10003;</div>
+            <h1>Application Submitted!</h1>
+            <p class="success-subtitle">Thank you for applying for <strong>{{ job.title }}</strong>.</p>
+            <p>We've received your application and our team will review it shortly. If your background is a good fit, we'll reach out within 5-7 business days to discuss next steps.</p>
+            <div class="success-actions">
+                <a href="{{ url_for('jobs') }}" class="btn btn-primary">Explore More Roles</a>
+                <a href="{{ url_for('index') }}" class="btn btn-outline">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
